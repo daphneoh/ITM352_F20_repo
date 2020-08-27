@@ -1,5 +1,4 @@
 # hello-world
-first repository
+ITM 352 Repository
 
-I am a new MIS major. I am excited to learn and get more aquanted with github. 
-This is my 4th year at UH. 
+Work for this class, will go in this repository. 
