@@ -1,0 +1,75 @@
+/* General */
+body {
+    width: 800px; 
+    margin: 0 auto;
+    background-image: url(images/phone_globe.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+   
+}
+
+/*typography*/
+h1  {
+    text-align: center;
+    color: rgb(255, 255, 255);
+background-color: rgb(247, 193, 193);
+text-shadow: #e0e0e0 1px 1px 0;
+color: rgb(255, 255, 255);
+background-color: rgb(247, 193, 193);
+}
+
+h2  {
+    text-align: center;
+    color: rgb(255, 255, 255);
+background-color: rgb(247, 193, 193);
+    
+}
+
+/* block styling */
+div {
+    border: 5px solid black;
+    display: flex;
+}
+
+/* Form styling */
+main{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+/*styling products display */
+img {
+    
+    height: 200px;
+    border: 1px solid #ddd;
+    /* Gray border */
+    border-radius: 4px;
+    /* Rounded border */
+    padding: 5px;
+    /* Some padding */
+    width: 200px;
+    /* Set a small width */
+}
+
+    /* Add a hover effect (blue shadow) */
+    img:hover {
+        box-shadow: 0 0 5px 1px black;
+        }
+
+p {
+    font-family: Georgia, serif;
+font-size: 25px;
+letter-spacing: 2px;
+word-spacing: 2px;
+color:  rgb(255, 255, 255);
+background-color: rgb(247, 193, 193);
+font-weight: 700;
+text-decoration: none;
+font-style: normal;
+font-variant: normal;
+text-transform: none;
+outline: 5px dotted rgb(247, 193, 193);
+outline-offset: 0px;
+}
