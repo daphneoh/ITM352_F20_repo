@@ -12,17 +12,24 @@
         var middle_name = "Young";
         var last_name = "Oh";
         var full_name = first_name + " " + middle_name + " " + last_name;
-        var formatted_name = full_name + '<br>' + first_name[0] + '.' + last_name[0] + '.';
+        var formatted_name = full_name + '<br>' + first_name[0] + '.' + last_name[0] + '.' + '<br>';
         document.write(formatted_name);
+        var name_result = first_name.bold() + '<br>' + middle_name.italics() + '<br>' + last_name.fontsize(7) + '<br>';
+        document.write(name_result);
+
+        var number = 356.87 * .0413;
+        var total = number.toFixed(2);
+        var bill = "The tax on " + first_name + "'s bill is $" + total;
+        document.write(bill);
     </script>
     <div id="ageDiv"></div>
 </body>
 </html>
 <script>
-    var stupid;
+
     age = 21;
    var numberOfKids = 1000000;
 
-    document.getElementById('ageDiv').innerHTML = "I want " + numberOfKids*age*stupid + " kids";
+    document.getElementById('ageDiv').innerHTML = "I want " + numberOfKids*age + " kids";
 
 </script>
