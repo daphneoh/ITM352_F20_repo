@@ -1,30 +1,47 @@
 <script>
 
     // Product 1
-    var brand1 = "HTC";
-    var price1 = 40;
-    var image1 = "http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg";
+     var Product1 = {
+        brand : 'HTC',
+     price : 40,
+     image : "http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg"
+    };
+    
 
     // Product 2
-    var brand2 = "Apple";
-    var price2 = 75;
-    var image2 = "http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg";
+    var Product2 = {
+  brand : "Apple",
+     price : 75,
+     image : "http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg"
+    };
+   
 
     // Product 3
-    var brand3 = "Nokia";
-    var price3 = 35;
-    var image3 = "http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg";
+    var Product3 = {
+brand : "Nokia",
+     price : 35,
+     image : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg"
 
+    };
+     
     // Product 4
-    var brand4 = "Samsung";
-    var price4 = 45;
-    var image4 = "http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg";
+    var Product4 = {
+ brand : "Samsung",
+     price : 45,
+     image : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg"
 
+    };
+    
     // Product 5
-    var brand5 = "Blackberry";
-    var price5 = 10;
-    var image5 = "http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg";
+    var Product5 = {
+  brand : "Blackberry",
+     price : 10,
+     image : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg"
 
+    };
+   
+   //Array to hold Product Objects
+   products = [Product1, Product2, Product3, Product4, Product5];
 </script>
 
 <!DOCTYPE html>
@@ -47,11 +64,11 @@
 
             <script>
 
-                for (i = 1; i <= 5; i++) {
+                for (i = 1; i < products.length; i++) {
                     document.write(`<section class="item"> 
-                    <h2>${eval('brand' + i)}</h2>
-                    <p>${eval('price' + i)}</p>
-                    <img src=${eval('image' + i)}>`);
+                    <h2>${products[i].brand}</h2>
+                    <p>${products[i].price}</p>
+                    <img src=${products[i].image}>`);
                     
                 }
                 
