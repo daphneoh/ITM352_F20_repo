@@ -28,51 +28,51 @@ let params = (new URL(document.location)).searchParams;
             document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
         }
 
-        // function displayPurchase() {
-        //     purchase_qty = GET["quantity_textbox"];
-        //     if (isNonNegIntString(purchase_qty)) {
-        //         //document.write(`Thank for you for ordering ${purchase_qty} things! `);
+        function displayPurchase() {
+            purchase_qty = GET["quantity_textbox"];
+            if (isNonNegIntString(purchase_qty)) {
+                //document.write(`Thank for you for ordering ${purchase_qty} things! `);
 
-        //     } else {
-        //         checkQuantityTextbox(purchase_qty);
-        //     }
+            } else {
+                checkQuantityTextbox(purchase_qty);
+            }
 
-        // }
+        }
 
-        // if(typeof GET["submit_button"] != 'undefined'){
-        //     displayPurchase();
-        // }
+        if(typeof GET["submit_button"] != 'undefined'){
+            displayPurchase();
+        }
 
         //Used code from Assignment 1 example to check valid qualities before sending to invoice.
 
-        window.onload = function () {
-        let params = (new URL(document.location)).searchParams; 
-        // form was submitted so check that quantities are valid then redirect to invoice if ok.
-        if (params.has('purchase_submit_button')) {
-            has_errors = false; 
-            total_qty = 0;
-            for (i = 0; i < products.length; i++) {
-                if (params.has(`quantity${i}`)) {
-                    a_qty = params.get(`quantity${i}`);
-                    product_form[`quantity${i}`].value = a_qty;
-                    total_qty += a_qty;
-                    if (!isNonNegInt(a_qty)) {
-                        has_errors = true;
-                        checkQuantityTextbox(product_form[`quantity${i}`]);
-                    }
-                }
-            }
-            // Generate alerts of you submit with errors or goes to invoice if no errors
-            if (has_errors) {
-                alert("Please enter only valid quantities! Must use integers.");
-            } else if (total_qty == 0) { 
-                alert("Please select some quantities! Your cart is empty.");
-            } else {
-                window.location = `./invoice.html${document.location.search}`;
-                window.stop;
-            }
-        }
-    }
+    //     window.onload = function () {
+    //     let params = (new URL(document.location)).searchParams; 
+    //     // form was submitted so check that quantities are valid then redirect to invoice if ok.
+    //     if (params.has('purchase_submit_button')) {
+    //         has_errors = false; 
+    //         total_qty = 0;
+    //         for (i = 0; i < products.length; i++) {
+    //             if (params.has(`quantity${i}`)) {
+    //                 a_qty = params.get(`quantity${i}`);
+    //                 product_form[`quantity${i}`].value = a_qty;
+    //                 total_qty += a_qty;
+    //                 if (!isNonNegInt(a_qty)) {
+    //                     has_errors = true;
+    //                     checkQuantityTextbox(product_form[`quantity${i}`]);
+    //                 }
+    //             }
+    //         }
+    //         // Generate alerts of you submit with errors or goes to invoice if no errors
+    //         if (has_errors) {
+    //             alert("Please enter only valid quantities! Must use integers.");
+    //         } else if (total_qty == 0) { 
+    //             alert("Please select some quantities! Your cart is empty.");
+    //         } else {
+    //             window.location = `./invoice.html${document.location.search}`;
+    //             window.stop;
+    //         }
+    //     }
+    // }
 </script>
 
 <!DOCTYPE html>
@@ -161,11 +161,10 @@ let params = (new URL(document.location)).searchParams;
                     <h2></h2>
                     <div class="panel-body"> <img src=${products[i].image} style="width:100%" alt="Image"></div>
                     <p>$${products[i].price}</p>
-                    <div class="panel-footer"></div>
-                    <br>
-                    <label id="quantity${i}_label"}">Quantity</label>
+                    <div class="panel-footer"><label id="quantity${i}_label"}">Quantity</label>
                     <input type = "text" placeholder = "0" name = "quantity${i}" onkeyup="checkQuantityTextbox(this);">
-                    </div>
+                   </div>
+                     </div>
               </div>
                     `);
 

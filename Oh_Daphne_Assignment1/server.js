@@ -18,21 +18,36 @@ app.all('*', function(request, response, next){
 app.use(myParser.urlencoded({extended: true}));
 //Handles the post request from the purchase request. Validate data and send to invoice.
 app.post("/process_form", function(request, response, next){
- console.log(request.body);  
-//Validate purchase data. Check each quantity is non negative integer or blank. Check at least one quantity is greater than 0. 
+ //console.log(request.body);  
 
+//Validate purchase data. Check each quantity is non negative integer or blank. Check at least one quantity is greater than 0. 
+var validqty = true; //Check for valid input. 
+var totlpurchases = false; //Check there were any input and not all 0.
 for (i = 0; i < products.length; i++) {
     aqty = request.body[`quantity${i}`];
-    console.log(isNonNegIntString(aqty));
-    if(isNonNegIntString(aqty) == true){
-         // Create query string of quantity data for invoice. 
-    purchase_qs = qs.stringify(request.body);
-    console.log(purchase_qs);
-//If data is valid, then send to invoice. 
-    response.redirect('./invoice4.html?' + purchase_qs);
+    //console.log(isNonNegIntString(aqty));
+    if(isNonNegIntString(aqty) == false){
+        validqty = false; //Invalid data 
+
     }
-    else {
-         //If data not valid, then stay on products display. 
+    if (aqty > 0){ //No data waas input or was left blank.
+        totlpurchases = true;
+    }
+
+
+         // Create query string of quantity data for invoice. 
+
+
+    purchase_qs = qs.stringify(request.body);
+    //console.log(purchase_qs);
+//If data is valid, then send to invoice. 
+   
+    if (validqty == true && totlpurchases == true) { 
+        response.redirect('./invoice4.html?' + purchase_qs); 
+    }
+    //If data not valid reload products page. 
+    else { 
+        response.redirect("./products_display.html?"); // goes to an error page to inform the person that they have inputted an invalid quantity.
     }
 }
 
