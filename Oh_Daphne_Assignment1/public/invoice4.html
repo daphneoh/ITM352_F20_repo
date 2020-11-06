@@ -28,26 +28,10 @@
   console.log(quantities);
 
 
-  
-
-  // function generate_item_rows(product_quantities_array) {
-  //   for (i = 0; i < product_quantities_array.length; i++) {
-  //     errs = isNonNegIntString(product_quantities_array[i], true);
-  //     if (product_quantities_array[i] == 0) {
-  //       continue;
-  //     }
-  //     if (errs.length == 0) {
-  //       var extended_price = product_quantities_array[i] * products[i].price;
-  //       subtotal = extended_price + subtotal;
-  //     }
-  //     else {
-  //       product_quantities_array[i] = `<span style = "color:red">${product_quantities_array[i]}<br>${errs.join("<br>")} </span>`;
-  //     }
-
 
 
  
-
+//Calculates Shipping Costs
   var shipping = 0;
   if (subtotal < 50) {
     shipping = 2.00;
@@ -72,9 +56,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-   
+    
     <title>Nail Polish Store</title>
+    
     <style>
+      /* Used Store Template to generate invoice */
+
         /* Remove the navbar's default rounded borders and increase the bottom margin */ 
         .navbar {
           margin-bottom: 50px;
@@ -123,9 +110,11 @@
         </div>
       </nav>
       
+      
       <table border="2">
         <tbody>
       <tr>
+        
         <th style="text-align: center;" width="43%">Item</th>
         <th style="text-align: center;" width="11%">Quantity</th>
         <th style="text-align: center;" width="13%">Price</th>
@@ -143,19 +132,30 @@
         extended_price = quantities[i] * products[i].price;
       subtotal += extended_price;
      
-      // document.write(`
-      //     <tr>
-      //       <td width="43%">${products[i].model}</td>
-      //       <td align="center" width="11%">${quantities[i]}</td>
-      //       <td width="13%">$${products[i].price}</td>
-      //       <td width="54%">$${extended_price}</td>
-      //     </tr>
-      //     `); 
+      //Prints out products and price to invoice.
+      document.write(`
+          <tr>
+            <td width="43%">${products[i].model}</td>
+            <td align="center" width="11%">${quantities[i]}</td>
+            <td width="13%">$${products[i].price}</td>
+            <td width="54%">$${extended_price}</td>
+          </tr>
+          `); 
+          
+          //Prints out Product with picture and extended price next to invoice.
       document.write(` 
-                    <h2>${products[i].model}</h2>
-                    <p>$${extended_price}</p>
-                    <img src=${products[i].image}>
                     
+                    <div class="col-sm-4">
+                    <div class="panel panel-success">
+                    <div class="panel-heading">${products[i].model}</div>
+                    <h2></h2>
+                    <div class="panel-body"> <img src=${products[i].image} style="width:100%" alt="Image"></div>
+                    <p>$${products[i].price}</p>
+                    <div class="panel-footer">${quantities[i] + ' x ' + products[i].price} </div>
+                    <br>
+                    <p>$${extended_price.toFixed(2)}</p>
+                    </div>
+              </div>
                     
                     `);
         }
@@ -178,10 +178,11 @@
       
       </div>
       <script>
+        //Prints out totals for invoice
         document.write(`
           <tr>
             <td style="text-align: center;" colspan="3" width="67%">Sub-total</td>
-            <td width="54%">$${subtotal}</td>
+            <td width="54%">$${subtotal.toFixed(2)}</td>
           </tr>
           `);
       </script>

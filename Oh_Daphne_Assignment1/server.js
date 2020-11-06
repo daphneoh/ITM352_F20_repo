@@ -13,11 +13,7 @@ app.all('*', function(request, response, next){
 
 
 
-app.get("/get_products", function(request, response){
-    response.type('.js');
-    console.log(" var products = " + JSON.stringify(products) + ";");
-    response.send(" var products = " + JSON.stringify(products) + ";");
-});
+
 
 app.use(myParser.urlencoded({extended: true}));
 //Handles the post request from the purchase request. Validate data and send to invoice.
