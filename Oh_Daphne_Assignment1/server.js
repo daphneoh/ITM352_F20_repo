@@ -1,3 +1,5 @@
+//Worked with Kevin and got code. 
+
 var express = require('express');
 var app = express();
 var myParser = require("body-parser");
@@ -37,7 +39,7 @@ for (i = 0; i < products.length; i++) {
 
          // Create query string of quantity data for invoice. 
 
-
+    // Got Code from Rose. 
     purchase_qs = qs.stringify(request.body);
     //console.log(purchase_qs);
 //If data is valid, then send to invoice. 
