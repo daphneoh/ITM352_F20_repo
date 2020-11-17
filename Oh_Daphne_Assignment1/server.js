@@ -49,7 +49,7 @@ for (i = 0; i < products.length; i++) {
     }
     //If data not valid reload products page. 
     else { 
-        response.redirect("./products_display.html?"); // goes to an error page to inform the person that they have inputted an invalid quantity.
+        response.redirect("./products_display.html?"); 
     }
 }
 
