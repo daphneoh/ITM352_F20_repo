@@ -1,0 +1,9 @@
+{
+    "dport": {
+        "fullname": "Dan Port",
+        "email": "dport@hawaii.edu",
+        "password": "portspassword",
+        "repeat_password": "portspassword"
+        
+    }
+}

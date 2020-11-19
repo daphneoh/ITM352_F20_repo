@@ -13,6 +13,9 @@ let params = (new URL(document.location)).searchParams;
     non-negative integer. Got code from Lab14 and example SmartPHoneProducts.
      */
     errors = []; // assume no errors at first
+    if(string_to_check == ' '){
+        string_to_check = 0;
+    }
     if (Number(string_to_check) != string_to_check) errors.push('<font color="red">Not a number!</font>'); // Check if string is a number value
     if (string_to_check < 0) errors.push('<font color="red">Negative value!</font>'); // Check if it is non-negative
     if (parseInt(string_to_check) != string_to_check) errors.push('<font color="red">Not an integer!</font>'); // Check that it is an integer
