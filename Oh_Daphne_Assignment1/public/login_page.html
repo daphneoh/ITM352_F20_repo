@@ -72,11 +72,11 @@
                         
                             <input type="text" name="username" size="40" placeholder="enter username"><br />
                             <input type="password" name="password" size="40" placeholder="enter password"><br />
-                            <input type="submit" value="Submit" id="submit">
+                            <input type="submit" value="Submit" id="submit" name = "submit_button">
                         </form>
 
                         <input type="button"  value="Register" id = "register"
-                        onclick="window.location='./registration_page.html' + document.location.search;">
+                        onclick="window.location='./registration_page.html?' + document.location.search;">
 
 
             </main>
@@ -89,3 +89,7 @@
 </body>
 
 </html>
+
+<script>
+    login_form.action += '?' + location.search;
+</script>

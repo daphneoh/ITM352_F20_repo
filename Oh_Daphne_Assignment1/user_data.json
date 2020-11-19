@@ -4,6 +4,10 @@
         "email": "dport@hawaii.edu",
         "password": "portspassword",
         "repeat_password": "portspassword"
-        
+    },
+    "abcd": {
+        "name": "abcd",
+        "password": "abcdefg",
+        "email": "ab@jfkd.com"
     }
 }

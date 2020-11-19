@@ -42,8 +42,10 @@ app.post("/process_login", function (req, res) {
     the_username = req.body.username.toLowerCase(); //putting the users, username as all lowercase
     if (typeof users_reg_data[the_username] != 'undefined') { //ask the object if it has matching username or leaving it as undefined
         if (req.body.password == users_reg_data[req.body.username].password) {
+            req.query['quantity0']=1;
+            console.log(req.query);
             res.redirect('/invoice4.html?' + qs.stringify(req.query));
-    
+            
         } else { //if password is not entered correctly tells the user invalid password 
             LogError.push = ('Invalid Password');
             console.log(LogError);
@@ -62,14 +64,14 @@ app.post("/process_login", function (req, res) {
 
 //creates an account on the server side 
 app.post("/process_registration", function (req, res) {
-    qstr = req.body
+    qstr = req.body;
     console.log(qstr);
     var errors = [];
 
     if (/^[A-Za-z]+$/.test(req.body.name)) { //forces the use of only letters for Full Naame
     }
     else {
-      errors.push('Use Only Letters for Full Name')
+      errors.push('Use Only Letters for Full Name');
     }
     // validating that it is a Full Name
     if (req.body.name == "") {
@@ -77,32 +79,32 @@ app.post("/process_registration", function (req, res) {
     }
     // length of full name is between 0 and 25 
   if ((req.body.fullname.length > 25 && req.body.fullname.length <0)) {
-    errors.push('Full Name Too Long')
+    errors.push('Full Name Too Long');
   }
   //checks the new username in all lowercase against the record of usernames
     var reguser = req.body.username.toLowerCase(); 
     if (typeof users_reg_data[reguser] != 'undefined') { //if username is not undefined gives an error that the username is taken
-      errors.push('Username taken')
+      errors.push('Username taken');
     }
     //requires that the username only be letters and numbers 
     if (/^[0-9a-zA-Z]+$/.test(req.body.username)) {
     }
     else {
-      errors.push('Letters And Numbers Only for Username')
+      errors.push('Letters And Numbers Only for Username');
     }
   
     //password is min 6 characters long 
     if (req.body.password.length < 6) {
-      errors.push('Password Too Short')
+      errors.push('Password Too Short');
     }
     // check to see if the two passwords match
     if (req.body.password !== req.body.repeat_password) { 
-      errors.push('Password Not a Match')
+      errors.push('Password Not a Match');
     }
     //if there are no errors this saves the user's registration in the json made with help from lab 14
     if (errors.length == 0) {
-      POST = req.body
-      console.log('no errors')
+      POST = req.body;
+      console.log('no errors');
       var username = POST['username'];
       users_reg_data[username] = {}; //make it 'users'
       users_reg_data[username].name = username;
@@ -110,11 +112,11 @@ app.post("/process_registration", function (req, res) {
       users_reg_data[username].email = POST['email'];
       data = JSON.stringify(users_reg_data); //change to users 
       fs.writeFileSync(filename, data, "utf-8");
-      res.redirect('./invoice.html?' + qs.stringify(req.query));
+      res.redirect('./invoice4.html?' + qs.stringify(req.query));
     }
     //of there are errors log them in the console and direct user again to the register page
     if (errors.length > 0) {
-        console.log(errors)
+        console.log(errors);
         req.query.name = req.body.name;
         req.query.username = req.body.username;
         req.query.password = req.body.password;
@@ -122,7 +124,7 @@ app.post("/process_registration", function (req, res) {
         req.query.email = req.body.email;
 
         req.query.errors = errors.join(';');
-        res.redirect('register.html?' + qs.stringify(req.query));
+        res.redirect('registration_page.html?' + qs.stringify(req.query));
     }
 });
 
