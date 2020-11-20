@@ -36,15 +36,14 @@ if (fs.existsSync(filename)) {
 }
 
 // Process user's login
+//Got code from Alyssa and Kevin.
 app.post("/process_login", function (req, res) {
     var LogError = [];
     console.log(req.body);
     the_username = req.body.username.toLowerCase(); //putting the users, username as all lowercase
     if (typeof users_reg_data[the_username] != 'undefined') { //ask the object if it has matching username or leaving it as undefined
         if (req.body.password == users_reg_data[req.body.username].password) {
-            req.query['quantity0']=1;
-            console.log(req.query);
-            res.redirect('/invoice4.html?' + qs.stringify(req.query));
+            res.redirect('/invoice4.html?' + qs.stringify(req.query) + req.body.username);
             
         } else { //if password is not entered correctly tells the user invalid password 
             LogError.push = ('Invalid Password');
@@ -63,6 +62,7 @@ app.post("/process_login", function (req, res) {
 });
 
 //creates an account on the server side 
+//Got code from Alyssa, Kevin and example in Assignment2.
 app.post("/process_registration", function (req, res) {
     qstr = req.body;
     console.log(qstr);

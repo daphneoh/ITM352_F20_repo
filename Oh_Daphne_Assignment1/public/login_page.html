@@ -76,7 +76,7 @@
                         </form>
 
                         <input type="button"  value="Register" id = "register"
-                        onclick="window.location='./registration_page.html?' + document.location.search;">
+                        onclick="window.location='./registration_page.html?' + location.search;">
 
 
             </main>
@@ -91,5 +91,5 @@
 </html>
 
 <script>
-    login_form.action += '?' + location.search;
+    login_form.action +=   location.search;
 </script>

@@ -14,8 +14,11 @@
   //Got code from Example SmartPhoneProducts.
   let params = (new URL(document.location)).searchParams; //Getting the data from query string
   var quantities = [];
+  
+  
   // form was submitted so process the invoice
   if (params.has('purchase_submit_button')) {
+  
     for (i = 0; i < products.length; i++) {
       console.log(params.get(`quantity${i}`));
       if (params.has(`quantity${i}`)) {
@@ -28,6 +31,7 @@
   }
   console.log(quantities);
 
+  
 
 
 
@@ -140,6 +144,7 @@
             <td align="center" width="11%">${quantities[i]}</td>
             <td width="13%">$${products[i].price}</td>
             <td width="54%">$${extended_price}</td>
+            
           </tr>
           `); 
           
