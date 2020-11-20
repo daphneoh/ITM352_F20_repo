@@ -43,7 +43,7 @@ app.post("/process_login", function (req, res) {
     the_username = req.body.username.toLowerCase(); //putting the users, username as all lowercase
     if (typeof users_reg_data[the_username] != 'undefined') { //ask the object if it has matching username or leaving it as undefined
         if (req.body.password == users_reg_data[req.body.username].password) {
-            res.redirect('/invoice4.html?' + qs.stringify(req.query) + req.body.username);
+            res.redirect('/invoice4.html?' + qs.stringify(req.query) + qs.stringify(req.body.username));
             
         } else { //if password is not entered correctly tells the user invalid password 
             LogError.push = ('Invalid Password');
