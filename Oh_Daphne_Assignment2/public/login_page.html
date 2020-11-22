@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    <script>
+        //alerts th euser if they have an error (in both the username and password)
+        let params = (new URL(document.location)).searchParams;
+
+        window.onload = function () {
+            if (params.has('LogError')) {
+                alert('Invalid Username or Passowrd');
+            }
+        }
+    </script>
+    
 <head>
 
     <meta charset="UTF-8">
@@ -72,7 +83,7 @@
                         
                             <input type="text" name="username" size="40" placeholder="enter username"><br />
                             <input type="password" name="password" size="40" placeholder="enter password"><br />
-                            <input type="submit" value="Submit" id="submit" name = "submit_button">
+                            <input type="submit" value="Submit" id="submit" name = "submit_button" onclick = passvalue();>
                         </form>
 
                         <input type="button"  value="Register" id = "register"
@@ -93,3 +104,4 @@
 <script>
     login_form.action +=   location.search;
 </script>
+

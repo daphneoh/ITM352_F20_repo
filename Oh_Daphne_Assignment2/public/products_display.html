@@ -31,20 +31,20 @@ let params = (new URL(document.location)).searchParams;
             document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
         }
 
-        function displayPurchase() {
-            purchase_qty = GET["quantity_textbox"];
-            if (isNonNegIntString(purchase_qty)) {
-                //document.write(`Thank for you for ordering ${purchase_qty} things! `);
+        // function displayPurchase() {
+        //     purchase_qty = GET["quantity_textbox"];
+        //     if (isNonNegIntString(purchase_qty)) {
+        //         //document.write(`Thank for you for ordering ${purchase_qty} things! `);
 
-            } else {
-                checkQuantityTextbox(purchase_qty);
-            }
+        //     } else {
+        //         checkQuantityTextbox(purchase_qty);
+        //     }
 
-        }
+        // }
 
-        if(typeof GET["submit_button"] != 'undefined'){
-            displayPurchase();
-        }
+        // if(typeof GET["submit_button"] != 'undefined'){
+        //     displayPurchase();
+        // }
 
 </script>
 

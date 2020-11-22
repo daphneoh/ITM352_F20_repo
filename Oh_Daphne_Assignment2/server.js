@@ -43,6 +43,7 @@ app.post("/process_login", function (req, res) {
     the_username = req.body.username.toLowerCase(); //putting the users, username as all lowercase
     if (typeof users_reg_data[the_username] != 'undefined') { //ask the object if it has matching username or leaving it as undefined
         if (req.body.password == users_reg_data[req.body.username].password) {
+            req.query.username = req.body.username; // adds username to query object
             res.redirect('/invoice4.html?' + qs.stringify(req.query) + qs.stringify(req.body.username));
             
         } else { //if password is not entered correctly tells the user invalid password 
@@ -112,7 +113,8 @@ app.post("/process_registration", function (req, res) {
       users_reg_data[username].email = POST['email'];
       data = JSON.stringify(users_reg_data); //change to users 
       fs.writeFileSync(filename, data, "utf-8");
-      res.redirect('./invoice4.html?' + qs.stringify(req.query));
+      req.query.username = req.body.username; 
+      res.redirect('./invoice4.html?' + qs.stringify(req.query)+ qs.stringify(req.body.username));
     }
     //of there are errors log them in the console and direct user again to the register page
     if (errors.length > 0) {
@@ -140,7 +142,7 @@ app.post("/process_registration", function (req, res) {
 //Handles the post request from the purchase request. Validate data and send to invoice.
 app.post("/process_form", function(request, response, next){
  //console.log(request.body);  
-
+ 
 //Validate purchase data. Check each quantity is non negative integer or blank. Check at least one quantity is greater than 0. 
 var validqty = true; //Check for valid input. 
 var totlpurchases = false; //Check there were any input and not all 0.
@@ -168,7 +170,8 @@ for (i = 0; i < products.length; i++) {
     }
     //If data not valid reload products page. 
     else { 
-        response.redirect("./products_display.html?"); 
+        
+        
     }
 
 
