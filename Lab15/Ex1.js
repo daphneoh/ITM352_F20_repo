@@ -3,6 +3,10 @@ var app = express();
 var myParser = require("body-parser");
 const fs = require('fs');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
+
+app.use(session({secret: "ITM352 rocks!"}));
+
 app.use(cookieParser());
 
 
@@ -25,8 +29,16 @@ if (fs.existsSync(filename)) {
 //Process login. Ex3 Lab 14
 app.use(myParser.urlencoded({ extended: true }));
 
+app.get("/use_session", function(request, response){
+   console.log('session id is ' + request.session.id);
+    if(typeof request.session.id != 'undefined'){
+        
+        response.send(`Welcome, your session ID is ${request.session.id}`);
+    }
+});
+
 app.get('/set_cookie', function(request, response){
-    response.cookie('myname','Daphne');
+    response.cookie('myname','Daphne', {maxAge: 5*1000});
     response.send('cookie sent!');
 });
 

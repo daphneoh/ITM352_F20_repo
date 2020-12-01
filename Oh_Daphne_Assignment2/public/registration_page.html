@@ -58,7 +58,7 @@
 
         /* Full-width input fields */
         input[type=text],
-        input[type=password] input[type=email]:focus {
+        input[type=password], input[type=email]:focus {
             width: 100%;
             padding: 15px;
             margin: 5px 0 22px 0;
@@ -67,8 +67,8 @@
             background: #f1f1f1;
         }
 
-        input[type=text]:focus,
-        input[type=password]:focus,
+        input[type=text],
+        input[type=password],
         input[type=email]:focus {
             background-color: #ddd;
             outline: none;
@@ -145,7 +145,7 @@
                         <input type="text" name="username" size="40" pattern=".[a-z0-9]{3,10}" required
                             title="Minimum 4 Characters, Maximum 10 Characters, Numbers/Letters Only"
                             placeholder="Enter Username"><br />
-                        <input type="email" name="email" size="40" placeholder="Enter Email"
+                        <input type="text" name="email" size="40" placeholder="Enter Email"
                             pattern="[a-z0-9._]+@[a-z0-9]+\.[a-z]{3,}$" required
                             title="Please enter valid email."><br />
                         <input type="password" id="password" name="password" size="40" pattern=".{6,}" required
