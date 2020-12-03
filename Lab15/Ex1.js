@@ -26,8 +26,15 @@ if (fs.existsSync(filename)) {
     console.log(`ERR: ${filename} does not exits!!!`);
 }
 
+
+
 //Process login. Ex3 Lab 14
 app.use(myParser.urlencoded({ extended: true }));
+
+app.all("*", function(request, response, next){
+    console.log(request.session, request.cookies);
+    next();
+});
 
 app.get("/use_session", function(request, response){
    console.log('session id is ' + request.session.id);
@@ -90,8 +97,14 @@ app.get("/register", function (request, response) {
 
 app.get("/login", function (request, response) {
     // Give a simple login form
+    if(typeof request.session["lastLogin"] != 'undefined'){
+        lastLogin = request.session["lastLogin"];
+    } else {
+        lastLogin = 'First login!';
+    }
     str = `
 <body>
+Last Login: ${lastLogin}
 <form action="process_login" method="POST">
 <input type="text" name="username" size="40" placeholder="enter username" ><br />
 <input type="password" name="password" size="40" placeholder="enter password"><br />
@@ -110,6 +123,9 @@ app.post("/process_login", function (request, response) {
     if (typeof users_reg_data[request.body.username] != 'undefined') {
         if (request.body.password == users_reg_data[request.body.username].password) {
             response.send(`Thank you ${request.body.username} for logging in.`);
+            var now = new Date();
+            console.log(`${request.body.username} logged in on ${now.toDateString()}`);
+            request.session["lastLogin"] = now.getDate() + ' ' + now.getTime();
         } else {
             response.send(`Hey! ${request.body.username} does not match what we have for you!`);
         }
