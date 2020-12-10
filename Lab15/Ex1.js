@@ -97,13 +97,20 @@ app.get("/register", function (request, response) {
 
 app.get("/login", function (request, response) {
     // Give a simple login form
-    if(typeof request.session["lastLogin"] != 'undefined'){
-        lastLogin = request.session["lastLogin"];
+    if( request.session.lastLogin){
+        lastLogin = request.session.lastLogin;
     } else {
         lastLogin = 'First login!';
     }
+    if(typeof request.cookies.username != 'undefined'){
+        welcome_str = request.cookies.username;
+    } else {
+        welcome_str = 'IDK';
+    }
     str = `
 <body>
+    Welcome back ${welcome_str}
+    <br>
 Last Login: ${lastLogin}
 <form action="process_login" method="POST">
 <input type="text" name="username" size="40" placeholder="enter username" ><br />
@@ -124,8 +131,11 @@ app.post("/process_login", function (request, response) {
         if (request.body.password == users_reg_data[request.body.username].password) {
             response.send(`Thank you ${request.body.username} for logging in.`);
             var now = new Date();
-            console.log(`${request.body.username} logged in on ${now.toDateString()}`);
-            request.session["lastLogin"] = now.getDate() + ' ' + now.getTime();
+            request.session["lastLogin"] = now.getTime();
+            console.log(`${request.body.username} logged in on ${request.session.lastLogin}`);
+            response.cookie('username', request.body.username, {maxAge: 60*1000});
+            response.send(`Thank you ${request.body.username} for logging in.`);
+            
         } else {
             response.send(`Hey! ${request.body.username} does not match what we have for you!`);
         }
