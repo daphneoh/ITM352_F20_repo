@@ -7,6 +7,7 @@ const fs = require('fs');
 var data = require('./public/product_data.js');
 var products = data.the_products;
 var qs = require('querystring');
+var products_data = require('./products.json');
 
 var user_datafile = 'user_data.json';
 //outputs to console the request and paths 
@@ -14,7 +15,9 @@ app.all('*', function (request, response, next) {
     console.log(request.method + ' to ' + request.path);
     next();
 });
-
+app.post("/get_products_data", function (request, response) {
+    response.json(products_data);
+});
 
 
 
