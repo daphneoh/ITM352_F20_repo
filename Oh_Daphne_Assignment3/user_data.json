@@ -1,0 +1,56 @@
+
+{
+    "dport": {
+        "name": "Dan Port",
+        "email": "dport@hawaii.edu",
+        "password": "portspassword"
+    },
+    "itm352": {
+        "name": "ITM 352",
+        "password": "grader",
+        "email": "itm352@hawaii.edu"
+    },
+    "abcd": {
+        "name": "abcd",
+        "password": "abcdefg",
+        "email": "ab@jfkd.com"
+    },
+    "asdfghjkl": {
+        "name": "asdfghjkl",
+        "password": "asdfghjkl",
+        "email": "asf@fgh.dgj"
+    },
+    "testing": {
+        "name": "testing",
+        "password": "password",
+        "email": "daphne@hdskla.com"
+    },
+    "newuse": {
+        "password": "password",
+        "email": "newuse@blah.clsj"
+    },
+    "test2": {
+        "password": "123456",
+        "email": "newuse@blah.clsj"
+    },
+    "test3": {
+        "name": "test3",
+        "password": "123456",
+        "email": "test3@djks.cjdsl"
+    },
+    "test four": {
+        "name": "test four",
+        "password": "123456",
+        "email": "test4@jfksl.dsklf"
+    },
+    "test5": {
+        "name": "test five",
+        "password": "asdfgh",
+        "email": "test5@jfksl.dfskl"
+    },
+    "test6": {
+        "name": "test six",
+        "password": "123456",
+        "email": "test6@jfsd.djfskl"
+    }
+}

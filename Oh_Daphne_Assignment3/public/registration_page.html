@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+    //alerts th euser if they have an error (in both the username and password)
+    let params = (new URL(document.location)).searchParams;
+
+    //Makes values sticky.
+    window.onload = function () {
+        if (params.has('errors')) {
+            alert(params.get('errors')); //Prints error to alert box. 
+            registration_form['username'].value = params.get('username'); //gets username from query string.
+            registration_form['fullname'].value = params.get('name'); //gets full name from query string.
+            registration_form['email'].value = params.get('email'); //gets email from query string. 
+        }
+    }
+</script>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="products-style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <title>Nail Polish Store</title>
+    <style>
+        /* Remove the navbar's default rounded borders and increase the bottom margin */
+        .navbar {
+            margin-bottom: 50px;
+            border-radius: 0;
+        }
+
+        /* Remove the jumbotron's default bottom margin */
+        .jumbotron {
+            margin-bottom: 0;
+        }
+
+        /* Add a gray background color and some padding to the footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: black;
+        }
+
+
+
+        /* Add padding to containers */
+        .container {
+            padding: 16px;
+            background-color: white;
+        }
+
+        /* Full-width input fields */
+        input[type=text],
+        input[type=password], input[type=email]:focus {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        input[type=text],
+        input[type=password],
+        input[type=email]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Overwrite default styles of hr */
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+
+        /* Set a style for the submit button */
+        .registerbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        .registerbtn:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<script> // Used Store Template from w3 schools. </script>
+
+<body>
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h2>Registration Page</h2>
+            <p>Please fill in this form to create an account.</p>
+
+        </div>
+    </div>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Logo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Products</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+
+    //Got code from Alyssa Assignment 2. 
+    //Requires certain elements be met before processing registration. 
+    </script>
+    <div>
+        <form name='registration_form' action="process_registration" method="POST">
+            <main>
+                <div class="container">
+                    <div class="row">
+                        <input type="text" name="fullname" size="40" pattern="[a-zA-Z]+[ ]+[a-zA-Z]+"
+                            placeholder="Enter First & Last Name"><br />
+                        <input type="text" name="username" size="40" pattern=".[a-z0-9]{3,10}" required
+                            title="Minimum 4 Characters, Maximum 10 Characters, Numbers/Letters Only"
+                            placeholder="Enter Username"><br />
+                        <input type="text" name="email" size="40" placeholder="Enter Email"
+                            pattern="[a-z0-9._]+@[a-z0-9]+\.[a-z]{3,}$" required
+                            title="Please enter valid email."><br />
+                        <input type="password" id="password" name="password" size="40" pattern=".{6,}" required
+                            title="6 Characters Minimum" placeholder="Enter Password"><br />
+                        <input type="password" id="repeat_password" name="repeat_password" size="40" pattern=".{6,}"
+                            required title="6 Characters Minimum" placeholder="Repeat Password"><br />
+
+                        <button type="submit" value="Register" class="registerbtn">Register</button>
+                    </div>
+
+
+        </form>
+
+
+
+
+        </main>
+
+        </form>
+    </div>
+    <footer>
+        <h1></h1>
+    </footer>
+</body>
+
+</html>
+
+<script>
+    registration_form.action += location.search; //Gets quanitity from query string to send to invoice. 
+</script>

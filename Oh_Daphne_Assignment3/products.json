@@ -15,7 +15,7 @@
         {
             "name": "Golden Sunflower",
             "price": "6.00",
-            "image": "images/yellow.jpeg"
+            "image": "images/yellow.jpg"
         }
     ],
     "remover": [ 
@@ -32,7 +32,7 @@
         {
             "name": "Acetone Dip Remover",
             "price": 11.35,
-            "image": "image/DipAce.jpeg"
+            "image": "images/DipAce.jpeg"
         }
     ],
     "tools": [
@@ -56,7 +56,7 @@
         {
             "name": "Butterfly Stickers",
             "price": 1.50,
-            "image": "images/butterflystick.jpeg"
+            "image": "images/butterflystick.jpg"
         },
         {
             "name": "Moon Nail Sticker",
