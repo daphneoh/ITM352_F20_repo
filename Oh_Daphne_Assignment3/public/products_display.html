@@ -49,7 +49,28 @@
     document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
   }
 
+function UpdateCart(product_index){
+  console.log(product_index, `quantity${product_index}`);
+  console.log(document.getElementById("quantity"+product_index).value);
+  data = {"products_key": products_key,
+    "product_index": product_index,
+    "quantity": document.getElementById("quantity"+product_index).value};
 
+  fetch("/update_cart",
+{
+  headers: {
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify(data)
+})
+.then(function(res){ return res.json(); })
+.then(function(data){ 
+  document.getElementById(`quantity${product_index}_messagediv`).innerHTML = data.message;
+ })
+
+
+}
 </script>
 
 <!DOCTYPE html>
@@ -117,7 +138,7 @@
 
 
   <div>
-    <form name='quantity_form' action="process_form" method="POST">
+    <form name='quantity_form' action="update_cart" method="POST">
       <main>
         <div class="container">
           <div class="row">
@@ -140,8 +161,10 @@
                     <div class="panel-body"> <img src=${products[i].image} style="width:100%" alt="Image"></div>
                     <p>$${products[i].price}</p>
                     <div class="panel-footer"><label id="quantity${i}_label"}">Quantity</label>
-                    <input type = "text" placeholder = "0" name = "quantity${i}" onkeyup="checkQuantityTextbox(this);">
-                   </div>
+                    <input type = "text" placeholder = "0" name = "quantity${i}" id = "quantity${i}" onkeyup="checkQuantityTextbox(this);">
+                    <input type="button" value="Update Cart" name="purchase_submit_button" onclick = "UpdateCart(${i});">
+                   <div id="quantity${i}_messagediv"></div>
+                    </div>
                      </div>
               </div>
                     `);
@@ -150,7 +173,7 @@
 
             </script>
       </main>
-      <input type="submit" value="Purchase" name="purchase_submit_button">
+      
     </form>
   </div>
   <footer>

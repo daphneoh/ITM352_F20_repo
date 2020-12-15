@@ -8,11 +8,27 @@ var data = require('./public/product_data.js');
 var products = data.the_products;
 var qs = require('querystring');
 var products_data = require('./products.json');
+var session = require('express-session');
+
+
+
+app.use(session({ secret: "ITM352 rocks!" }));
 
 var user_datafile = 'user_data.json';
 //outputs to console the request and paths 
 app.all('*', function (request, response, next) {
     console.log(request.method + ' to ' + request.path);
+    
+    //initialize shopping cart, if not already there. 
+    if (typeof request.session.cart == 'undefined') {
+
+        request.session.cart = {};
+        for (pk in products_data) {
+            emptyArray = new Array(products_data[pk].length).fill(0);
+            request.session.cart[pk] = emptyArray;
+        }
+        console.log(request.session.cart);
+    }
     next();
 });
 app.post("/get_products_data", function (request, response) {
@@ -23,7 +39,7 @@ app.post("/get_products_data", function (request, response) {
 
 
 app.use(myParser.urlencoded({ extended: true }));
-
+app.use(myParser.json());
 //check if file exits before reading 
 if (fs.existsSync(user_datafile)) {
     stats = fs.statSync(user_datafile);
@@ -148,45 +164,25 @@ app.post("/process_registration", function (req, res) {
 
 
 //Handles the post request from the purchase request. Validate data and send to invoice.
-app.post("/process_form", function (request, response, next) {
-    //console.log(request.body);  
-
-    //Validate purchase data. Check each quantity is non negative integer or blank. Check at least one quantity is greater than 0. 
-    var validqty = true; //Check for valid input. 
-    var totlpurchases = false; //Check there were any input and not all 0.
-    for (i = 0; i < products.length; i++) {
-        aqty = request.body[`quantity${i}`];
-        //console.log(isNonNegIntString(aqty));
-        if (isNonNegIntString(aqty) == false) {
-            validqty &= false; //Invalid data 
-
-        }
-        if (aqty > 0) { //No data waas input or was left blank.
-            totlpurchases = true;
-        }
+app.post("/update_cart", function (request, response, next) {
+    console.log(request.body);
+    
+    //Validate update cart quantity.  If valid add to session.
+    if (isNonNegIntString(request.body.quantity) == true) {
+        pk = request.body.products_key;
+        qty = Number.parseInt(request.body.quantity);
+        idx = Number.parseInt(request.body.product_index);
+        request.session.cart[pk][idx] = qty;
+        return_data = {message: "Cart Updated"};
     }
-
-    // Create query string of quantity data for invoice. 
-
-    // Got Code from Rose. 
-    purchase_qs = qs.stringify(request.body);
-    //console.log(purchase_qs);
-    //If data is valid, then send to invoice. 
-
-    if (validqty == true && totlpurchases == true) {
-        response.redirect('./login_page.html?' + purchase_qs);
-    }
-    //If data not valid reload products page. 
     else {
-
-
+        return_data = {message: "invalid quantity, did'nt update"};
     }
+console.log(request.session.cart);
+response.json(return_data);
+}
 
-
-
-
-
-});
+);
 
 app.use(express.static('./public'));
 app.listen(8080, () => console.log(`listening on port 8080`));
