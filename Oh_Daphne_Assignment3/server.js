@@ -176,8 +176,9 @@ app.post("/update_cart", function (request, response, next) {
         return_data = {message: "Cart Updated"};
     }
     else {
-        return_data = {message: "invalid quantity, did'nt update"};
+        return_data = {message: "invalid quantity, cart not updated"};
     }
+    request.session.save();
 console.log(request.session.cart);
 response.json(return_data);
 }
