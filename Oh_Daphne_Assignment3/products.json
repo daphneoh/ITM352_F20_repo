@@ -3,18 +3,18 @@
         {
             
             "name": "Base Coat",
-            "price": " 9.00",
+            "price": 9.00,
             "image": "images/base_coat.jpg"
         },
         {
             "name": "Dutch Tulips",
-            "price": "4.00",
+            "price": 4.00,
             "image": "images/dutch_tulips.jpeg"
         },
         
         {
             "name": "Golden Sunflower",
-            "price": "6.00",
+            "price": 6.00,
             "image": "images/yellow.jpg"
         }
     ],
