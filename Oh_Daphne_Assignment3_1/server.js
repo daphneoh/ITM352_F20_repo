@@ -35,7 +35,7 @@ app.all('*', function (request, response, next) {
 });
 
 
-
+//Load products data on html pages. 
 app.post("/get_products_data", function (request, response) {
     response.json(products_data);
 });
@@ -45,7 +45,7 @@ app.post("/get_products_data", function (request, response) {
 
 app.use(myParser.urlencoded({ extended: true }));
 app.use(myParser.json());
-//check if file exits before reading 
+//check if file exists before reading 
 if (fs.existsSync(user_datafile)) {
     stats = fs.statSync(user_datafile);
     console.log(`user_data.json has ${stats['size']} characters`); //prints to console the length of characters in json file.
@@ -69,13 +69,13 @@ app.post("/get_cart_data", function (request, response) {
 
 });
 
-function checkSignIn(req, res) {
-    if (req.session.user) {
-        next();     //If session exists, proceed to page
+//Checks if user is signed in before accessing invoice and sending email.
+function checkSignIn(req, res, next) {
+    if (!req.session.username) {
+        res.redirect("./login_page.html");
+        return;
     } else {
-        var err = new Error("Not logged in!");
-        console.log(req.session.user);
-        next(err);  //Error, trying to access unauthorized page!
+        res.redirect("./invoice.html");
     }
 }
 
@@ -100,9 +100,9 @@ app.post("/process_login", function (req, res) {
             req.session.username = req.body.username; //gets username from body and adds to session.
             req.query.username = the_username; // adds username to query object
             req.query.name = users_reg_data[the_username]["name"];
-            //res.cookie('username', req.session.username);
+
             req.session.save();
-            res.redirect('/index.html' ); //passes name, username, and quanitity values to invoice. 
+            res.redirect('/index.html');
 
             return;
         } else { //if password is not entered correctly tells the user invalid password 
@@ -189,10 +189,10 @@ app.post("/process_registration", function (req, res) {
     }
 });
 
-app.use('/invoice', function (err, req, res, next) {
-    console.log(err);
+app.get('/invoice', function (req, res,) {
+    //console.log(err);
     //User should be authenticated! Redirect him to log in.
-    res.redirect('/login_page.html');
+    res.redirect('/invoice.html');
 });
 
 
@@ -249,15 +249,16 @@ function isNonNegIntString(string_to_check, returnErrors = false) {
 }
 
 app.get("/checkout", function (request, response) {
-   //Check if user logged in , if not send to login
-    if(!request.session.username) {
+    //Check if user logged in , if not send to login
+    if (!request.session.username) {
         response.redirect("./login_page.html");
         return;
-    } 
+    }
 
     // Generate HTML invoice string
     user_email = users_reg_data[request.session.username]["email"];
-    var invoice_str = `Thank you for your order!<table border><th>Item</th><th>Quantity</th><th>Price</th><th>Extended Price</th>`;
+    var output_message = `Thank you ${users_reg_data[request.session.username]["name"]} for your order`;
+    var invoice_str = `<table border><th>Item</th><th>Quantity</th><th>Price</th><th>Extended Price</th>`;
     var shopping_cart = request.session.cart;
     subtotal = 0;
     for (product_key in products_data) {
@@ -302,7 +303,7 @@ app.get("/checkout", function (request, response) {
         <td style = "text-align: center;" colspan = "3" width="67"><span style="font-family: arial;">Shipping</span></td>
         <td width="54%">$${shipping.toFixed(2)}</td>
       `;
-      invoice_str += `
+    invoice_str += `
       <tr>
         <td style="text-align: center;" colspan="3" width="67%"><strong>Total</strong></td>
         <td width="54%"><strong>$${grandTotal.toFixed(2)}</strong></td>
@@ -320,7 +321,7 @@ app.get("/checkout", function (request, response) {
         }
     });
 
-    
+
     var mailOptions = {
         from: 'phoney_store@bogus.com',
         to: user_email,
@@ -330,11 +331,11 @@ app.get("/checkout", function (request, response) {
 
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-            invoice_str += `<br>There was an error and your invoice could not be emailed : to ${user_email}(`;
+            output_message += `<br>There was an error and your invoice could not be emailed : to ${user_email}`;
         } else {
-            invoice_str += `<br>Your invoice was mailed to ${user_email}`;
+            output_message += `<br>Your invoice was mailed to ${user_email}`;
         }
-        response.send(invoice_str);
+        response.send(output_message);
     });
 
 });

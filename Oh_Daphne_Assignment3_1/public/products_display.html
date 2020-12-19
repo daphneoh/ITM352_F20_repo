@@ -1,26 +1,22 @@
+<script src="./functions.js"></script>
+<script>
+  // get the query string
+  let params = (new URL(document.location)).searchParams;
+  if (params.has('products_key')) {
+    var products_key = params.get('products_key');
+  } else {
+    document.write('no products key in query string');
+    document.stop;
+  }
 
-  <script src="./functions.js"></script>
-  <script>
-        // get the query string
-        let params = (new URL(document.location)).searchParams;
-        if (params.has('products_key')) {
-            var products_key = params.get('products_key');
-        } else {
-            document.write('no products key in query string');
-            document.stop;
-        }
-        
-  
-        var products_data;
-        loadJSON('get_products_data', function (response) {
-            // Parsing JSON string into object
-            products_data = JSON.parse(response);
-        });
-    </script>
-    <script>
-  // let params = (new URL(document.location)).searchParams;
-  // GET = {};
-  // params.forEach(function (value, key) { GET[key] = value });
+
+  var products_data;
+  loadJSON('get_products_data', function (response) {
+    // Parsing JSON string into object
+    products_data = JSON.parse(response);
+  });
+</script>
+<script>
 
   function isNonNegIntString(string_to_check, returnErrors = false) {
     /*
@@ -49,28 +45,29 @@
     document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
   }
 
-function UpdateCart(product_index){
-  console.log(product_index, `quantity${product_index}`);
-  console.log(document.getElementById("quantity"+product_index).value);
-  data = {"products_key": products_key,
-    "product_index": product_index,
-    "quantity": document.getElementById("quantity"+product_index).value};
+  //Got code from office hours with Dan Port. 
+  function UpdateCart(product_index) {
+    data = {
+      "products_key": products_key,
+      "product_index": product_index,
+      "quantity": document.getElementById("quantity" + product_index).value
+    };
 
-  fetch("/update_cart",
-{
-  headers: {
-      'Content-Type': 'application/json'
-    },
-    method: "POST",
-    body: JSON.stringify(data)
-})
-.then(function(res){ return res.json(); })
-.then(function(data){ 
-  document.getElementById(`quantity${product_index}_messagediv`).innerHTML = data.message;
- })
+    fetch("/update_cart",
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        document.getElementById(`quantity${product_index}_messagediv`).innerHTML = data.message;
+      })
 
 
-}
+  }
 </script>
 
 <!DOCTYPE html>
@@ -123,13 +120,15 @@ function UpdateCart(product_index){
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        
+
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-         <script>nav_bar(products_key, products_data);</script>
+
+          <script>nav_bar(products_key, products_data);</script>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <li><a href="./login_page.html">Login</a></li>
           <li><a href="./cart.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
         </ul>
       </div>
@@ -173,7 +172,7 @@ function UpdateCart(product_index){
 
             </script>
       </main>
-      
+
     </form>
   </div>
   <footer>

@@ -1,0 +1,155 @@
+<head>
+  <script src="./functions.js"></script>
+
+  <script>
+
+    var products_data;
+    loadJSON('get_products_data', function (response) {
+      // Parsing JSON string into object
+      products_data = JSON.parse(response);
+    });
+    var cart;
+    loadJSON('get_cart_data', function (response) {
+      // Parsing JSON string into object
+      cart = JSON.parse(response);
+    });
+    //add or subtract quantity of items already in the cart
+    //Code from Office Hours with Dan Port.
+    function Update_Qty(amt, the_indx) {
+      document.getElementById(`quantity${the_indx}_messagediv`).innerHTML = "";
+      the_indx = Number.parseInt(the_indx);
+      var product_qty = Number.parseInt(document.getElementById("quantity" + the_indx).innerHTML);
+      if (product_qty > 0 || amt > 0) {
+        product_qty += amt;
+        document.getElementById("quantity" + the_indx).innerHTML = product_qty;
+        UpdateCart(pk, the_indx, product_qty);
+      }
+
+    };
+    //Updates server with new values. 
+    //Code from office hours Dan Port.
+    function UpdateCart(products_key, product_index, quantity) {
+
+      data = {
+        "products_key": products_key,
+        "product_index": product_index,
+        "quantity": quantity
+      };
+
+      fetch("/update_cart",
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify(data)
+        })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          document.getElementById(`quantity${product_index}_messagediv`).innerHTML = data.message;
+        })
+
+
+    }
+
+    //Prints navigation bar of products within JSON file. 
+    nav_bar('', products_data);
+
+
+  </script>
+</head>
+<html lang="en">
+<!-- Got code from w3 schools for design.  -->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="stylesheet" href="cart-style.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopping Cart</title>
+</head>
+<div class="container">
+
+</div>
+<li><a href="./login_page.html">Login</a></li>
+<div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+
+        <h3 class="modal-title" id="exampleModalLabel">
+          Your Shopping Cart
+        </h3>
+
+      </div>
+
+      <div class="modal-body">
+        <table class="table table-image">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Product</th>
+              <th scope="col"></th>
+              <th scope="col">Price</th>
+              <th scope="col"></th>
+              <th scope="col">Qty</th>
+              <th scope="col"></th>
+              <th scope="col">Total</th>
+              <th scope="col"></th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <script>
+              //Generates the cart with items found in the session. 
+              //Got code from working with Dan Port in office hours.
+              for (pk in cart) {
+                for (i in cart[pk]) {
+                  qty = cart[pk][i];
+                  if (qty > 0) {
+
+                    ext_price = qty * products_data[pk][i]["price"];
+                    document.write(`
+              <tr>
+                <td class="w-25">
+                  <img src=${products_data[pk][i]["image"]} style="width:50%" alt="Image">
+                </td>
+                
+                <td>${products_data[pk][i]["name"]}</td>
+                <td>\$${products_data[pk][i]["price"].toFixed(2)}</td>
+                
+                <td><input type = "button" value = "-" onclick="Update_Qty(-1, ${i});"></td>
+                <td id = "quantity${i}">${qty}</td>
+                <td><input type = "button" value = "+" onclick="Update_Qty(1, ${i});"></td>
+                
+                <td id="quantity${i}_messagediv"></td></div>
+                <td>\$${ext_price.toFixed(2)}</td>
+                <td>
+                  <a href="#" class="btn btn-danger btn-sm">
+                    <i class="fa fa-times"></i>
+                  </a>
+                </td>
+              </tr>`);
+                  }
+                }
+              }
+            </script>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer border-top-0 d-flex justify-content-between">
+        <!-- Goes to check if logged in. -->
+        <form action="/invoice" method=GET>
+
+          <button input type="submit" class="checkout-cta">Go To Secure Checkout</button>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</html>

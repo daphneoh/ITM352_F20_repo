@@ -1,0 +1,156 @@
+<script src="user_data.json" type="json"></script>
+
+<script src="./functions.js"></script>
+<script>
+
+
+  var products_data = '';
+  loadJSON('get_products_data', function (response) {
+    // Parsing JSON string into object
+    products_data = JSON.parse(response);
+
+  });
+  var cart;
+  loadJSON('get_cart_data', function (response) {
+    // Parsing JSON string into object
+    cart = JSON.parse(response);
+  });
+
+
+</script>
+<script>
+
+  var subtotal = 0;
+
+
+
+
+
+
+
+  //Calculates Shipping Costs
+  var shipping = 0;
+  if (subtotal < 50) {
+    shipping = 2.00;
+  }
+  else if (subtotal > 50 && subtotal < 100) {
+    shipping = 5.00;
+  }
+  else if (subtotal > 100) {
+    shipping = subtotal * 0.05;
+  }
+
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- Got code from w3 schools template for shopping cart. -->
+
+<head>
+  <script src="./functions.js"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="cart-style.css">
+  <title>Basket</title>
+</head>
+<form action="/checkout" method=GET>
+
+  <body>
+    <main>
+      <div class="basket">
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+
+          </ul>
+        </div>
+        <div class="basket-labels">
+          <ul>
+            <li class="item item-heading">Item</li>
+            <li class="price">Price</li>
+            <li class="quantity">Quantity</li>
+            <li class="subtotal">Subtotal</li>
+          </ul>
+        </div>
+        <script>
+          subtotal = 0;
+          //Generates items from shopping cart. 
+          for (pk in cart) {
+            for (i in cart[pk]) {
+              qty = cart[pk][i];
+              if (qty > 0) {
+
+                ext_price = qty * products_data[pk][i]["price"];
+                subtotal += ext_price;
+                document.write(`
+      <div class="basket-product">
+        <div class="item">
+          <div class="product-image">
+            <img src=${products_data[pk][i]["image"]} alt="Placholder Image 2" class="product-frame">
+          </div>
+          <div class="product-details">
+            <h1><strong>${products_data[pk][i]["name"]}</h1>
+          </div>
+        </div>
+        <div class="price">${products_data[pk][i]["price"].toFixed(2)}</div>
+        <div class = "quantity">
+          ${qty}
+          
+          </div>
+        <div class="subtotal">${ext_price.toFixed(2)}</div>
+      </div>`);
+              }
+            }
+          }
+
+        </script>
+      </div>
+
+      <aside>
+        <script>
+          // Compute Sales Tax
+          var salesTax = subtotal * 0.0575;
+
+          // Compute Grand Total
+          var grandTotal = subtotal + salesTax + shipping;
+          document.write(`
+      <div class="summary">
+        <div class="summary-total-items"><span class="total-items"></span> Items in your Bag</div>
+        <div class="summary-subtotal">
+          <div class="subtotal-title">Subtotal</div>
+          <div class="subtotal-value final-value" id="basket-subtotal">${subtotal.toFixed(2)}</div>
+         
+        </div>
+       <div class = "summary-salesTax">
+        <div class = "salesTax-title">Sales Tax</div>
+        <div class="salesTax-value final-value" id="basket-subtotal">${salesTax.toFixed(2)}</div>
+        </div>
+
+        <div class = "summary-shipping">
+        <div class = "shipping-title">Shipping</div>
+        <div class="shipping-value final-value" id="basket-subtotal">${shipping.toFixed(2)}</div>
+        </div>
+
+        <div class="summary-total">
+          <div class="total-title">Total</div>
+          <div class="total-value final-value" id="basket-total">${grandTotal.toFixed(2)}</div>
+        </div>
+        <div class="summary-checkout">
+          <button input type ="submit" class="checkout-cta">Email Invoice</button>
+      </div>
+      `);
+
+        </script>
+
+
+
+      </aside>
+    </main>
+  </body>
+
+</form>
+
+</html>
