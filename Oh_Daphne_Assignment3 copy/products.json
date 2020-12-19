@@ -1,0 +1,72 @@
+{ 
+    "nailpolish":[ 
+        {
+            
+            "name": "Base Coat",
+            "price": 9.00,
+            "image": "images/base_coat.jpg"
+        },
+        {
+            "name": "Dutch Tulips",
+            "price": 4.00,
+            "image": "images/dutch_tulips.jpeg"
+        },
+        
+        {
+            "name": "Golden Sunflower",
+            "price": 6.00,
+            "image": "images/yellow.jpg"
+        }
+    ],
+    "remover": [ 
+        {
+            "name": "Non Acetone",
+            "price": 10.10,
+            "image": "images/NonAce.jpeg"
+        },
+        {
+            "name": "100% Acetone",
+            "price": 12.15,
+            "image": "images/Ace.jpeg"
+        },
+        {
+            "name": "Acetone Dip Remover",
+            "price": 11.35,
+            "image": "images/DipAce.jpeg"
+        }
+    ],
+    "tools": [
+        {
+            "name": "Revlon Cuticle Nipper",
+            "price": 10.50,
+            "image": "images/CuticleClip.jpeg"
+        },
+        {
+            "name": "Nail Swatch Book",
+            "price": 8.60,
+            "image": "images/swatchBook.jpeg"
+        },
+        {
+            "name": "Nail Clippers",
+            "price": 12.75,
+            "image": "images/Clippers.jpeg"
+        }
+    ],
+    "accessories": [
+        {
+            "name": "Butterfly Stickers",
+            "price": 1.50,
+            "image": "images/butterflystick.jpg"
+        },
+        {
+            "name": "Moon Nail Sticker",
+            "price": 3.60,
+            "image": "images/moonNail.jpeg"
+        },
+        {
+            "name": "Nail Confetti",
+            "price": 2.00,
+            "image": "images/confettiNail.jpeg"
+        }
+    ]
+}
